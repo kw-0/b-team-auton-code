@@ -1,0 +1,48 @@
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Controller1          controller                    
+// Drivetrain           drivetrain    1, 10          
+// ---- END VEXCODE CONFIGURED DEVICES ----
+
+#include "vex.h"
+
+using namespace vex;
+
+motor LeftWheels = motor(PORT1, ratio18_1, true);
+motor RightWheels = motor(PORT10, ratio18_1, false);
+motor Arm = motor(PORT3, ratio18_1, false);
+motor Intake = motor(PORT8, ratio18_1, true);
+
+
+
+int main() {
+  // Initializing Robot Configuration. DO NOT REMOVE!
+  vexcodeInit();
+
+  Intake.setVelocity(100, percent);
+  Arm.setVelocity(100, percent);
+
+  // first goal make sure to put bot as close to goal as possible, because it moves back on its own
+  Drivetrain.driveFor(forward, 2.5, inches);
+  Arm.rotateFor(1.75, rev); 
+  Intake.rotateFor(2, rev);
+  wait(0.5, sec);
+
+  // backing away from goal
+  Arm.rotateFor(-0.7,rev);
+  Drivetrain.driveFor(forward, 5, inches);
+  Drivetrain.turnFor(right, 55, degrees);
+  wait(0.5, sec);
+
+  // getting second goal
+  Arm.rotateFor(-0.5, rev);
+  Drivetrain.setDriveVelocity(30, percent);
+  Drivetrain.driveFor(reverse, 7, inches);
+  Intake.rotateFor(-2, rev);
+  Arm.rotateFor(.5, rev);
+  Drivetrain.driveFor(forward,8, inches);
+  Drivetrain.turnFor(right, 60, degrees);
+  Drivetrain.driveFor(reverse, 5, inches);
+
+}
